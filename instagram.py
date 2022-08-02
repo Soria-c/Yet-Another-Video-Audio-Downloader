@@ -38,7 +38,6 @@ class Instagram(Processing, Only_video):
             return "", urls
         result = api.user_feed(str(user_id))
         code = self.url.split('/')[4]
-        result = api.user_feed(str(str(user_id)))
         data = result['items']
         next_max_id = result.get('next_max_id')
         while next_max_id:
