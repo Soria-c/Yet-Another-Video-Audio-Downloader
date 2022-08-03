@@ -1,6 +1,6 @@
 # Usage:
 python main.py <video|audio|stories> <url> [-t|v|p] [hh:mm:ss-hh:mm:ss] [xN] [t:tr]
-    Options:
+Options:
     
         -t          trim, range: [hh:mm:ss-hh:mm:ss]
         -v          velocity: [xN], where 'N' is a number
