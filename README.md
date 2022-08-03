@@ -1,5 +1,6 @@
 # Usage:
 python main.py <video|audio|stories> <url> [-t|v|p] [hh:mm:ss-hh:mm:ss] [xN] [t:tr]
+    
 Options:
     
         -t          trim, range: [hh:mm:ss-hh:mm:ss]
