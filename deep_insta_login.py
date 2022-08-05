@@ -1,6 +1,6 @@
 import json
 import codecs
-
+import sys
 import os.path
 
 try:
@@ -43,7 +43,7 @@ def login(username, password):
     device_id = None
     try:
 
-        settings_file = "settings.json"
+        settings_file = os.path.join(sys.path[0], "settings.json")
         if not os.path.isfile(settings_file):
             # settings file does not exist
             print('Unable to find file: {0!s}'.format(settings_file))
@@ -51,7 +51,7 @@ def login(username, password):
             # login new
             api = Client(
                 username, password,
-                on_login=lambda x: onlogin_callback(x, "settings.json"))
+                on_login=lambda x: onlogin_callback(x, settings_file))
         else:
             with open(settings_file) as file_data:
                 cached_settings = json.load(file_data, object_hook=from_json)
@@ -71,7 +71,7 @@ def login(username, password):
         api = Client(
             username, password,
             device_id=device_id,
-            on_login=lambda x: onlogin_callback(x, "settings.json"))
+            on_login=lambda x: onlogin_callback(x, settings_file))
 
     except ClientLoginError as e:
         print('ClientLoginError {0!s}'.format(e))
