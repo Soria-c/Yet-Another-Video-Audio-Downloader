@@ -15,10 +15,10 @@ async def download_all(urls, failed=None):
 
 async def download_link(url, session, failed):
     headers = {}
-    if (".jpg" in url[1]):
-        h = 'x-full-image-content-length'
-    else:
-        h = 'Content-Length'
+    #if (".jpg" in url[1]):
+    #    h = 'Content-Length'
+    #else:
+    #    h = 'Content-Length'
     
     #if "source=youtube&" in url[0]:
     #    headers = {
@@ -33,11 +33,13 @@ async def download_link(url, session, failed):
     #}
 
     async with session.get(url[0]) as response:
-        
+       # print(url[1])
+        #print(response.headers)
         if int(response.status) != 200:
             failed.append(url)
             return
-        pbar2 = tqdm(total=int(response.headers[h]), unit='B', unit_scale=True)
+        pbar2 = tqdm(total=int(response.headers['Content-Length']), unit='B', unit_scale=True)
+        
         with open(url[1], "wb") as f2:
             async for chunk2 in response.content.iter_chunked(8196):
                     f2.write(chunk2)

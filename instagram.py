@@ -30,10 +30,10 @@ class Instagram(Processing, Only_video):
             for i in s['items']:
                 if i["media_type"] == 1:
                     url = i['image_versions2']['candidates'][0]['url']
-                    urls.append([url, f"{self.target}_{count}.jpg"])
+                    urls.append([url, f"{self.target.replace('.','')}_{count}.jpg"])
                 elif i["media_type"] == 2:
                     url2 = i['video_versions'][0]['url']
-                    urls.append([url2, f"{self.target}_{count}.mp4"])
+                    urls.append([url2, f"{self.target.replace('.','')}_{count}.mp4"])
                 count += 1
             return "", urls
         result = api.user_feed(str(user_id))

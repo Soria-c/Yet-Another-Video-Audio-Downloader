@@ -17,17 +17,19 @@ class Only_video:
 
     def download(self):
         if (self.file_type == "stories"):
+    
             failed = []
             loop = asyncio.get_event_loop()
-            loop.run_until_complete(download_all(self.real_url, failed))            
+            loop.run_until_complete(download_all(self.real_url, failed))
             if (failed):
                 for i in failed:
-                    if (".jpg" in i[1]):
-                        h = 'x-full-image-content-length'
-                    else:
-                        h = 'Content-Length'
+                    #if (".jpg" in i[1]):
+                    #    h = 'x-full-image-content-length'
+                    #else:
+                    #    h = 'Content-Length'
                     r = requests.get(i[0])
-                    pbar = tqdm(total=int(r.headers[h]), unit='B', unit_scale=True)
+                    print(r.headers)
+                    pbar = tqdm(total=int(r.headers['Content-Length']), unit='B', unit_scale=True)
                     with open(i[1], "wb") as f:
                         for j in r.iter_content(chunk_size=8196):
                             f.write(j)
