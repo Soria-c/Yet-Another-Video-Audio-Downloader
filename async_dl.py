@@ -32,10 +32,7 @@ async def download_link(url, session, failed):
        # print(url[1])
         #print(response.headers)
         r_headers = response.headers
-        if (r_headers.get("x-full-image-content-length") is not None):
-            h = r_headers.get("x-full-image-content-length")
-        else:
-            h = r_headers.get("Content-Length")
+        h = r_headers.get("x-full-image-content-length") or r_headers.get("Content-Length")
         if int(response.status) != 200:
             failed.append(url)
             return
