@@ -23,13 +23,13 @@ class Only_video:
             loop.run_until_complete(download_all(self.real_url, failed))
             if (failed):
                 for i in failed:
-                    #if (".jpg" in i[1]):
-                    #    h = 'x-full-image-content-length'
-                    #else:
-                    #    h = 'Content-Length'
                     r = requests.get(i[0])
-                    print(r.headers)
-                    pbar = tqdm(total=int(r.headers['Content-Length']), unit='B', unit_scale=True)
+                    r_headers = r.headers
+                    if (r_headers.get("x-full-image-content-length") is not None):
+                        h = r_headers.get("x-full-image-content-length")
+                    else:
+                        h = r_headers.get("Content-Length")
+                    pbar = tqdm(total=int(h), unit='B', unit_scale=True)
                     with open(i[1], "wb") as f:
                         for j in r.iter_content(chunk_size=8196):
                             f.write(j)
